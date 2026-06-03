@@ -3,7 +3,9 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from app import app
+from app import app, init_db
+
+init_db()
 
 
 def test_login_page():
@@ -46,7 +48,7 @@ def test_signup_post():
     response = client.post(
         '/signup',
         data={
-            'email': 'test2@test.com',
+            'email': 'ci_test_user@test.com',
             'first_name': 'Test',
             'last_name': 'User',
             'password': '123456'
