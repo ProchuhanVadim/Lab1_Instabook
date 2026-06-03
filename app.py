@@ -25,7 +25,7 @@ def get_db_connection():
 def init_db():
     conn = get_db_connection()
 
-    conn.execute('''CREATE TABLE IF NOT EXISTS users 
+    conn.execute('''CREATE TABLE IF NOT EXISTS users
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
                   email TEXT UNIQUE,
                   password TEXT,
@@ -35,14 +35,14 @@ def init_db():
                   birthday TEXT,
                   address TEXT)''')
 
-    conn.execute('''CREATE TABLE IF NOT EXISTS posts 
+    conn.execute('''CREATE TABLE IF NOT EXISTS posts
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
                   title TEXT,
                   content TEXT,
                   user_id INTEGER,
                   date TEXT)''')
 
-    conn.execute('''CREATE TABLE IF NOT EXISTS comments 
+    conn.execute('''CREATE TABLE IF NOT EXISTS comments
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,
                   post_id INTEGER,
                   user_id INTEGER,
@@ -85,9 +85,9 @@ def index():
 
     conn = get_db_connection()
 
-    posts = conn.execute('''SELECT posts.*, users.first_name, users.last_name 
+    posts = conn.execute('''SELECT posts.*, users.first_name, users.last_name
                             FROM posts
-                            JOIN users ON posts.user_id = users.id 
+                            JOIN users ON posts.user_id = users.id
                             ORDER BY posts.id DESC''').fetchall()
 
     comments = conn.execute('''SELECT comments.*, users.first_name, users.last_name
@@ -217,6 +217,7 @@ def comment(post_id):
 
     return redirect(url_for('index'))
 
+
 @app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
@@ -244,6 +245,7 @@ def forgot_password():
         conn.close()
 
     return render_template('forgot-password.html')
+
 
 @app.route('/reset-password/<token>', methods=['GET', 'POST'])
 def reset_password_token(token):

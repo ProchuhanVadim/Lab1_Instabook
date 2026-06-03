@@ -30,25 +30,27 @@ def test_index_redirect():
     client = app.test_client()
     response = client.get('/')
     assert response.status_code == 302
+
+
 def test_logout_redirect():
     client = app.test_client()
     response = client.get('/logout')
-
     assert response.status_code == 302
 
 
 def test_invalid_reset_token():
     client = app.test_client()
     response = client.get('/reset-password/fake_token')
-
     assert response.status_code == 302
+
+
 def test_signup_post():
     client = app.test_client()
 
     response = client.post(
         '/signup',
         data={
-            'email': 'ci_test_user@test.com',
+            'email': 'ci_test_user_unique@test.com',
             'first_name': 'Test',
             'last_name': 'User',
             'password': '123456'
