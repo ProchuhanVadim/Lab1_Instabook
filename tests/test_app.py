@@ -46,7 +46,7 @@ def test_signup_post():
     response = client.post(
         '/signup',
         data={
-            'email': 'test@test.com',
+            'email': 'test2@test.com',
             'first_name': 'Test',
             'last_name': 'User',
             'password': '123456'
